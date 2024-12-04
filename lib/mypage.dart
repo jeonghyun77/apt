@@ -1,4 +1,5 @@
 import 'package:apt/user/join.dart';
+import 'package:apt/user/singin.dart';
 import 'package:flutter/material.dart';
 
 class Mypage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _MypageState extends State<Mypage> {
   final List<Map<String, dynamic>> _mylist = [
     {'title': '내 정보', 'page': JoinPage},
     {'title': '약관 및 정책', 'page': JoinPage},
-    {'title': '알림받기', 'page': JoinPage},
+    {'title': '알림 받기', 'page': SinginPage},
     {'title': '고객센터', 'page': JoinPage},
     {'title': '현재 앱 버전', 'page': JoinPage},
   ];
