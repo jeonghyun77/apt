@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "485013512985",
+    "project_id": "apt-app-d09ef",
+    "storage_bucket": "apt-app-d09ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485013512985:android:c3885058927c43a5569b88",
+        "android_client_info": {
+          "package_name": "com.example.apt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx2NnG9noFjiUmgxTJm2mWsDWf6WAx09k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
