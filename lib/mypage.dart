@@ -1,5 +1,6 @@
 import 'package:apt/user/join.dart';
 import 'package:apt/user/singin.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Mypage extends StatefulWidget {
@@ -12,11 +13,11 @@ class Mypage extends StatefulWidget {
 class _MypageState extends State<Mypage> {
   bool _isCkeck = false;
   final List<Map<String, dynamic>> _mylist = [
-    {'title': '내 정보', 'page': JoinPage},
-    {'title': '약관 및 정책', 'page': JoinPage},
-    {'title': '알림 받기', 'page': SinginPage},
-    {'title': '고객센터', 'page': JoinPage},
-    {'title': '현재 앱 버전', 'page': JoinPage},
+    {'title': '내 정보', 'page': JoinPage()},
+    {'title': '약관 및 정책', 'page': JoinPage()},
+    {'title': '알림 받기', 'page': SinginPage()},
+    {'title': '고객센터', 'page': JoinPage()},
+    {'title': '현재 앱 버전', 'page': JoinPage()},
   ];
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,8 @@ class _MypageState extends State<Mypage> {
             itemBuilder: (context, index) {
               return ListTile(
                   trailing: _mylist[index]['title'] == '알림 받기'
-                      ? Switch(
+                      ? CupertinoSwitch(
                           activeColor: Colors.amber,
-                          inactiveTrackColor: Colors.blueGrey,
-                          inactiveThumbColor: Colors.blueAccent,
                           value: _isCkeck,
                           onChanged: (bool? value) {
                             setState(() {

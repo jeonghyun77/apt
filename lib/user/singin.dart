@@ -14,6 +14,7 @@ class _JoinpageState extends State<SinginPage> {
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   String _statusMessage = '';
+  bool _isObscure = true;
 
   Future<void> _signIn() async {
     try {
@@ -51,6 +52,34 @@ class _JoinpageState extends State<SinginPage> {
     }
   }
 
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _passwordController.addListener((){
+      setState(() {
+        _statusMessage = _passwordController.text;
+      });
+    });
+  }
+
+
+
+
+  void _clearText(){
+    _passwordController.clear();
+  }
+
+
+  void _toggleObscure(){
+    setState(() {
+      _isObscure =! _isObscure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,81 +104,88 @@ class _JoinpageState extends State<SinginPage> {
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: TextField(
                   controller: _emailController,
-                  decoration: InputDecoration(labelText: "이메일"),
+                  decoration: InputDecoration(labelText: "이메일", labelStyle: TextStyle(color: Colors.grey,
+                    fontSize: 14,)),
                 ),
               ),
+
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(bottom: 8.0),
                 child: TextField(
+                 obscureText: _isObscure,
+                  autofocus: false,
+                  cursorColor: Theme.of(context).primaryColor,
                   controller: _passwordController,
-                  decoration: InputDecoration(labelText: "비밀번호"),
-                  obscureText: true,
-                ),
-              ),
-              // GestureDetector(
-              //   onTap: _signIn,
-              //   child: Container(
-              //     color: Color(0xff232c4a),
-              //     width: 120,
-              //     height: 30,
-              //     child: Center(
-              //       child: Text('로그인',
-              //           style: TextStyle(
-              //             color: Colors.white,
-              //             fontSize: 14,
-              //           )),
-              //     ),
-              //   ),
+                  decoration: InputDecoration(
+                    labelText: "비밀번호", labelStyle: TextStyle(color: Colors.grey, fontSize: 14,),
+              ))),
+              // OutlinedButton(
+              //   style: OutlinedButton.styleFrom(
+              //       backgroundColor: Color(0xff232c4a), shape: LinearBorder()),
+              //   onPressed: _signIn,
+              //   child: Text('로그인',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 14,
+              //       )),
               // ),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    backgroundColor: Color(0xff232c4a), shape: LinearBorder()),
-                onPressed: _signIn,
-                child: Text('로그인',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    )),
-              ),
+
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          shape: LinearBorder.bottom()),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => JoinPage()),
-                        );
-                      },
-                      child: Text(
-                        '아이디 찾기',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10),
-                      )),
-                  OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          shape: LinearBorder.bottom()),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => JoinPage()),
-                        );
-                      },
-                      child: Text(
-                        '비밀번호 찾기',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10),
-                      )),
+                  TextButton(onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JoinPage()),
+                    );
+                  }, child:  Text(
+                    '회원가입',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10),
+                  )),
+                  Container(
+                    width: 1,
+                    height: 15,
+                    color: Colors.grey,
+                  ),
+                  TextButton(onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JoinPage()),
+                    );
+                  }, child:  Text(
+                    '아이디 찾기',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10),
+                  )),
+                  Container(
+                    width: 1,
+                    height: 15,
+                    color: Colors.grey,
+                  ),
+                  TextButton(onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JoinPage()),
+                    );
+                  }, child:  Text(
+                    '비밀번호 찾기',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10),
+                  )),
                 ],
               ),
+
             ],
           ),
-        ));
+        ),
+
+    );
   }
 }
