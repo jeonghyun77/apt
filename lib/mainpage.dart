@@ -1,6 +1,6 @@
 import 'package:apt/aptpage.dart';
 import 'package:apt/mypage.dart';
-import 'package:apt/user/singin.dart';
+import 'package:apt/user/signup.dart';
 import 'package:flutter/material.dart';
 
 class Mainpage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _MainpageState extends State<Mainpage> {
             IconButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SinginPage()));
+                      MaterialPageRoute(builder: (context) => SignupPage()));
                 },
                 icon: Icon(Icons.notifications_none)),
             IconButton(

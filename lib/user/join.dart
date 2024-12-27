@@ -48,9 +48,10 @@ Future<void> _submit()async{
                   hintText: "", // 입력에 값이 없을 때 입력을 돕기 위한 텍스트
                 ),
               ),
-                  TextField(
+                  TextFormField(
                     controller: userIdController, // ID 용 TextFormField 에는 ID 용 Controller 를 설정함.
                     decoration: InputDecoration(
+
                       label: Text('아이디', style:  TextStyle(fontSize: 14)),
                       hintText: "아이디를 입력하세요.",
                         hintStyle: TextStyle(fontSize: 10)
