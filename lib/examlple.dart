@@ -1,4 +1,3 @@
-import 'package:apt/mypage.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -61,7 +60,7 @@ class _ExamlpleState extends State<Examlple> {
               }
             }else{
               return const Center(
-                child: Text('데이터 없음'),
+                child: Text('데이터 없음ㅜㅜㅜㅜㅜ'),
               );
             }
 
