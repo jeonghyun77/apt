@@ -71,7 +71,7 @@ class _ExamlpleState extends State<Examlple> {
             );
           case ConnectionState.none:
             return const Center(
-              child: Text('데이터 없음'),
+              child: Text('데이터 없음!'),
             );
         }
       }
