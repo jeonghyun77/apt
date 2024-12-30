@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:apt/mainpage.dart';
+
+import 'package:apt/user/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -17,11 +19,11 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+  
+  LoginPlatfrom _loginPlatfrom = LoginPlatfrom.none;
 
-  LoginPlatform _loginPlatform = LoginPlatform.none;
-
-  void signInWithKakao() async {
-    try {
+  void sigInWithKakao()async{
+    try{
       bool isInstalled = await isKakaoTalkInstalled();
 
       OAuthToken token = isInstalled
@@ -30,37 +32,39 @@ class _StartPageState extends State<StartPage> {
       final url = Uri.https('kapi.kakao.com', '/v1/user/access_token_info');
       final response = await http.get(url, headers: {
         HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
+
       });
       final profileInfo = json.decode(response.body);
       print(profileInfo.toString());
 
       setState(() {
-        _loginPlatform = LoginPlatform.kakao;
+        _loginPlatfrom = LoginPlatfrom.kakao;
       });
-    } catch (erorr) {
-      print('카카오톡 로그인 실패 $erorr');
+    }catch(error){
+      print('카카오톡 로그인 실패 $error');
     }
   }
 
-  void signOut() async {
-    switch (_loginPlatform) {
-      case LoginPlatform.facebook:
+
+  void signOut()async{
+    switch(_loginPlatfrom){
+      case LoginPlatfrom.facebook:
         break;
-      case LoginPlatform.apple:
+      case LoginPlatfrom.apple:
         break;
-      case LoginPlatform.google:
+      case LoginPlatfrom.google:
         break;
-      case LoginPlatform.kakao:
+      case LoginPlatfrom.kakao:
         await UserApi.instance.logout();
         break;
-      case LoginPlatform.naver:
+      case LoginPlatfrom.naver:
         break;
-      case LoginPlatform.none:
+      case LoginPlatfrom.none:
         break;
     }
 
     setState(() {
-      _loginPlatform = LoginPlatform.none;
+      _loginPlatfrom = LoginPlatfrom.none;
     });
   }
   @override
@@ -74,21 +78,20 @@ class _StartPageState extends State<StartPage> {
           SizedBox(
             height: 20,
           ),
-          Text('간편하게 로그인하고\n다양한 서비스를 이용해 보세요.', textAlign: TextAlign.center,style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w600,),),
+          Text('로그인 후 다양한 서비스를 이용해 보세요.',style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w600,),),
           SizedBox(
             height: 20,
           ),
-          Center(
-            child: _loginPlatform != LoginPlatform.none
+          Container(
+              padding: const EdgeInsets.only(left: 80),
+            child: _loginPlatfrom != LoginPlatfrom.none
                 ? _logoutButton()
                 : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [_loginButton('kakao_logo', signInWithKakao)],
+              children: [_loginButton('kakao_logo', sigInWithKakao)],
             )
           ),
-
           SizedBox(
-            height: 40,
+            height: 10,
           ),
           GestureDetector(
             onTap: (){
