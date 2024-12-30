@@ -1,4 +1,4 @@
-enum LoginPlatfrom{
+enum LoginPlatform {
   facebook,
   google,
   kakao,
