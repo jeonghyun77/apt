@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:apt/user/check_validate.dart';
 import 'package:flutter/material.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 class JoinPage extends StatefulWidget {
   const JoinPage({super.key});
@@ -13,42 +12,27 @@ class JoinPage extends StatefulWidget {
 class _SigninpageState extends State<JoinPage> {
 
 
+
+
 final _formkey = GlobalKey<FormState>();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _usernameController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _passworConfirmController = TextEditingController();
 
-
+bool _isObscure = true;
+bool _isObscuref = true;
 bool _isCheckRed = false;
 
-// 유효성 검사
-FocusNode emailFocus = new FocusNode();
-FocusNode passwordFocus = new FocusNode();
-
-
-final FirebaseAuth _firebaseAuth =FirebaseAuth.instance;
-
-Future<void> _submit()async{
-  if(_formkey.currentState!.validate() == false){
-    return;
-  }else{
-    _formkey.currentState!.save();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('회원가입이 완료되었습니다. 로그인을 진행해주세요.'),
-      duration: Duration(seconds: 1),)
-    );
-    Navigator.of(context).pop();
+  void _signUp(){
+    if(_formkey.currentState!.validate()){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('회원가입 성공!')));
+    }
   }
-}
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -60,51 +44,88 @@ Future<void> _submit()async{
               child: Padding(padding:  const EdgeInsets.symmetric(horizontal: 16), child: Column(children: [
                 TextFormField(
                 controller: _usernameController,
-                validator: (value){
-                  if(value == null || value.isEmpty){
-                    return '닉네임을 입력해주세요.';
-                  }
-                  return null;
-                },
+                validator: ValidationUtils.validateUserName,
                   onSaved: (value){},
                 decoration: InputDecoration(
-                  label: Text('닉네임', style:  TextStyle(fontSize: 14)),
+                  label: Text('닉네임', style:  TextStyle(fontSize: 14, color: Colors.black)),
                   hintText: "닉네임을 입력하세요.",  hintStyle: TextStyle(fontSize: 10)
                 ),
               ),
                 TextFormField(
-                  focusNode: emailFocus,
+
+                  validator: (value){
+                    if(value == null || value.isEmpty) {
+                      return '이메일을 입력해주세요.';
+                    }else{
+                      String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp reExp = RegExp(pattern);
+                      if(!reExp.hasMatch(value)){
+                        return '잘못된 이메일 형식입니다. 다시 입력해주세요.';
+                      }
+                      return null;
+                    }
+
+                  },
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
                   decoration: InputDecoration(
-                      label: Text('이메일', style:  TextStyle(fontSize: 14)),
+                      label: Text('이메일', style:  TextStyle(fontSize: 14,color: Colors.black)),
                       hintText: "abcd@gmail.com",
                       hintStyle: TextStyle(fontSize: 10)
                   ),
                 ),
                 TextFormField(
-                  onSaved: (value){},
+                  obscureText: _isObscure,
+                  autofocus: _isObscure,
+                  validator: (value){
+                  String? validatePassword(String value) {
+                  String pattern =
+                  r'^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,15}$';
+                  RegExp regExp = RegExp(pattern);
+                  if(value == null || value.isEmpty){
+                    return '비밀번호를 입력하세요.';
+                  }
+                  else if(value.length < 8){
+                    return '비밀번호는 8자리 이상이어야합니다.';
+                  }else if(!regExp.hasMatch(value)){
+                    return '특수문자, 문자, 숫자 포함 8자 이상 15자 이내로 입력하세요.';
+                  }else {
+                    return null;
+                  }
+                  }},
+                  
                   controller: _passwordController,
                     decoration: InputDecoration(
-                      label: Text('비밀번호', style:  TextStyle(fontSize: 14)),
+                      label: Text('비밀번호', style:  TextStyle(fontSize: 14,color: Colors.black)),
                       hintText: "비밀번호를 입력하세요.",
-                        hintStyle: TextStyle(fontSize: 10)
+                        hintStyle: TextStyle(fontSize: 10),
+                        suffixIcon: IconButton(onPressed: (){
+                setState(() {
+                _isObscure =! _isObscure;
+                });
+                }, icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off) ),
                     ),
                   ),
                 TextFormField(
+                  obscureText: _isObscuref,
+                  autofocus: false,
+
                   controller: _passworConfirmController,
                   validator: (value){
                     if(value == null || value.isEmpty){
                       return '비밀번호를 한번 더 입력해주세요.';
-                    }else if(value != _passwordController.text.toString()){
+                    }else if(value != _passwordController.text){
                       return '비밀번호가 일치하지 않습니다.';
                     }
                     return null;
                   },
-                  onSaved: (value){},
                   decoration: InputDecoration(
-                    label: Text('비밀번호 확인', style:  TextStyle(fontSize: 14)),
-                    hintText: "비밀번호를 다시 한번 입력하세요.",
+                    label: Text('비밀번호 확인', style:  TextStyle(fontSize: 14,color: Colors.black)),
+                    suffixIcon: IconButton(onPressed: (){
+                      setState(() {
+                        _isObscuref =! _isObscuref;
+                      });
+                    }, icon: Icon(_isObscuref ? Icons.visibility : Icons.visibility_off, color: Colors.black,) ),
                     hintStyle: TextStyle(fontSize: 10)
                   ),
                 ),
@@ -142,8 +163,7 @@ Future<void> _submit()async{
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(20),
         child: MaterialButton(
-          onPressed: () async{
-          },
+          onPressed: _signUp,
           color: Color(0xffc7c7c7),
           textColor: Colors.white,
           child: Text('완료'),
@@ -154,24 +174,6 @@ Future<void> _submit()async{
 
 }
 
-// Widget TextFormFiledComponent(bool obscureText, TextInputType keyboardType, TextInputAction textInputAction, String hintText, int maxsize, String errorMessage){
-//   return Container(
-//     child: TextFormField(
-//       obscureText: obscureText,
-//       keyboardType: keyboardType,
-//       textInputAction: textInputAction,
-//       decoration: InputDecoration(
-//         hintText: hintText
-//       ),
-//       validator: (value){
-//         if(value!.length < maxsize){
-//           return errorMessage;
-//         }
-//       },
-//     ),
-//   );
-
-// }
 
 
 

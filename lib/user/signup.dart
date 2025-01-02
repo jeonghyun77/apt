@@ -1,5 +1,7 @@
 
+import 'package:apt/mainpage.dart';
 import 'package:apt/user/join.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,7 +15,30 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+ final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
+ Future<void> _login()async{
+   try {
+     UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
+     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Mainpage()));
+   }on FirebaseAuthException catch (e){
+     String message;
+     switch (e.code){
+       case 'no':
+         message = '이메일을 찾을 수없슴';
+         break;
+       case 'wrong':
+         message = '비번 잘못됨';
+         break;
+       default:
+         message  = '다시 시도해!';
+     }
+     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+   }catch (e){
+     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('다시 시도하세요')));
+   }
+ }
 
 
   @override
@@ -110,7 +135,15 @@ class _SignupPageState extends State<SignupPage> {
             ],
           ),
         ),
-
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(20),
+        child: MaterialButton(
+          onPressed: _login,
+          color: Color(0xffc7c7c7),
+          textColor: Colors.white,
+          child: Text('완료'),
+        ),
+      ),
     );
   }
 

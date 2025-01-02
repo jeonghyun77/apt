@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:apt/mainpage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -83,7 +82,7 @@ class _StartPageState extends State<StartPage> {
                 ? _logoutButton()
                 : Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [_loginButton('kakao_logo', signInWithKakao)],
+              children: [_loginButton('kakao_login_medium_narrow', signInWithKakao)],
             )
           ),
 
@@ -95,7 +94,7 @@ class _StartPageState extends State<StartPage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SignupPage()));
             },
-            child: Text('이메일로 로그인 하기',style: TextStyle( decoration: TextDecoration.underline,fontSize: 10, color: Colors.black),),
+            child: Text('이메일로 로그인 하기',style: TextStyle( decoration: TextDecoration.underline,fontSize: 13, color: Colors.black),),
           )
         ],
       ),)
