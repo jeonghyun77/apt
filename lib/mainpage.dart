@@ -1,6 +1,6 @@
 import 'package:apt/aptpage.dart';
 import 'package:apt/mypage.dart';
-import 'package:apt/user/signup.dart';
+import 'package:apt/user/Login.dart';
 import 'package:flutter/material.dart';
 
 class Mainpage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _MainpageState extends State<Mainpage> {
             IconButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupPage()));
+                      MaterialPageRoute(builder: (context) => LoginPage()));
                 },
                 icon: Icon(Icons.notifications_none)),
             IconButton(
@@ -57,7 +57,7 @@ class _MainpageState extends State<Mainpage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'asset/house.png',
+                            'asset/images/house.png',
                           ),
                           SizedBox(
                             height: 10,
@@ -91,7 +91,7 @@ class _MainpageState extends State<Mainpage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('asset/apt.png'),
+                              Image.asset('asset/images/apt.png'),
                               SizedBox(
                                 height: 10,
                               ),
@@ -127,7 +127,7 @@ class _MainpageState extends State<Mainpage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('asset/office.png'),
+                          Image.asset('asset/images/office.png'),
                           SizedBox(
                             height: 10,
                           ),
@@ -156,7 +156,7 @@ class _MainpageState extends State<Mainpage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('asset/officetel.png'),
+                          Image.asset('asset/images/officetel.png'),
                           SizedBox(
                             height: 10,
                           ),

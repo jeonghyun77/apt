@@ -1,5 +1,8 @@
 
+import 'package:apt/components/gradient_button.dart';
 import 'package:apt/user/check_validate.dart';
+import 'package:apt/user/Login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class JoinPage extends StatefulWidget {
@@ -24,9 +27,18 @@ bool _isObscure = true;
 bool _isObscuref = true;
 bool _isCheckRed = false;
 
-  void _signUp(){
-    if(_formkey.currentState!.validate()){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('회원가입 성공!')));
+ Future <void> _signUp()async{
+    try{
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: "test@example", password: "12345");
+      print("회원가입 성공: ${userCredential.user?.uid}");
+    }
+    catch(e){
+      if(_formkey.currentState!.validate()){
+        Future.delayed(Duration(seconds: 2), (){
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginPage()), (router) => false);
+        });
+    }
+
     }
   }
 
@@ -109,7 +121,6 @@ bool _isCheckRed = false;
                 TextFormField(
                   obscureText: _isObscuref,
                   autofocus: false,
-
                   controller: _passworConfirmController,
                   validator: (value){
                     if(value == null || value.isEmpty){
@@ -156,18 +167,22 @@ bool _isCheckRed = false;
                     Text("[필수]", style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
                     Text(" 14세 이상입니다.", style: TextStyle(fontSize: 10),)
                   ],
-                )
+                ),
+
+                GradientButton(
+                  onPressed:  _signUp,
+                  width: 50, height: 20, child: Center(child:  Text('완료',style: TextStyle(color: Colors.white, fontSize: 13),),),)
               ],)))
 
             ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(20),
-        child: MaterialButton(
-          onPressed: _signUp,
-          color: Color(0xffc7c7c7),
-          textColor: Colors.white,
-          child: Text('완료'),
-        ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.all(20),
+            child: MaterialButton(
+              onPressed: _signUp,
+              color: Color(0xffffdb12),
+              textColor: Colors.white,
+              child: Text('완료'),
+            ),
       ),
     );
   }

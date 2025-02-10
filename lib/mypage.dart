@@ -1,5 +1,5 @@
 import 'package:apt/user/join.dart';
-import 'package:apt/user/signup.dart';
+import 'package:apt/user/Login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class _MypageState extends State<Mypage> {
   final List<Map<String, dynamic>> _mylist = [
     {'title': '내 정보', 'page': JoinPage()},
     {'title': '약관 및 정책', 'page': JoinPage()},
-    {'title': '알림 받기', 'page': SignupPage()},
+    {'title': '알림 받기', 'page': LoginPage()},
     {'title': '고객센터', 'page': JoinPage()},
     {'title': '현재 앱 버전', 'page': JoinPage()},
   ];

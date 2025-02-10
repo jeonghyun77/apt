@@ -40,6 +40,7 @@ dependencies:
   kakao_flutter_sdk_user: ^1.9.6
   kakao_flutter_sdk: ^1.9.6
   logger: ^2.5.0
+  provider: ^6.1.2
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.3
@@ -59,16 +60,16 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - asset/splash.png
-    - asset/kakao_login_medium_narrow.png
-    - asset/startpage.png
-    - asset/alert.png
-    - asset/User.png
-    - asset/apt.png
-    - asset/house.png
-    - asset/office.png
-    - asset/officetel.png
-    - asset/Setting.png
+    - asset/images/splash.png
+    - asset/images/kakao_login_medium_narrow.png
+    - asset/images/startpage.png
+    - asset/images/alert.png
+    - asset/images/User.png
+    - asset/images/apt.png
+    - asset/images/house.png
+    - asset/images/office.png
+    - asset/images/officetel.png
+    - asset/images/Setting.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
