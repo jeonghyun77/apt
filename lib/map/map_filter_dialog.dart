@@ -96,15 +96,18 @@ class _MapFilterDialogState extends State<MapFilterDialog> {
                   value: mapFilter.carString,
                 )
             ),
-            Row(
-              children: [
-                ElevatedButton(onPressed: (){
-                  Navigator.of(context).pop(mapFilter);
-                }, child: Text('확인')),
-                ElevatedButton(onPressed: (){
-                  Navigator.of(context).pop();
-                }, child: Text('취소'))
-              ],
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(onPressed: (){
+                    Navigator.of(context).pop(mapFilter);
+                  }, child: Text('확인')),
+                  ElevatedButton(onPressed: (){
+                    Navigator.of(context).pop();
+                  }, child: Text('취소'))
+                ],
+              ),
             )
           ],
         ),
