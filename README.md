@@ -1,6 +1,6 @@
 # apt
 
-A new Flutter project.
+부동산 앱
 
 ## Getting Started
 
