@@ -1,5 +1,5 @@
 import 'package:apt/aptpage.dart';
-import 'package:apt/mypage.dart';
+import 'package:apt/mypage/mypage.dart';
 import 'package:apt/user/Login.dart';
 import 'package:flutter/material.dart';
 
@@ -47,29 +47,35 @@ class _MainpageState extends State<Mainpage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      height: 180,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xfff0f0f0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'asset/images/house.png',
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '빌라 / 주택',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff292D32)),
-                          ),
-                        ],
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Aptpage()));
+                      },
+                      child: Container(
+                        height: 180,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xfff0f0f0),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'asset/images/house.png',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '빌라 / 주택',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff292D32)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -117,28 +123,34 @@ class _MainpageState extends State<Mainpage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      width: 180,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xfff0f0f0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('asset/images/office.png'),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '사무실',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff292D32)),
-                          ),
-                        ],
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Aptpage()));
+                      },
+                      child: Container(
+                        width: 180,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xfff0f0f0),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('asset/images/office.png'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '사무실',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff292D32)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -146,28 +158,34 @@ class _MainpageState extends State<Mainpage> {
                     width: 10,
                   ),
                   Expanded(
-                    child: Container(
-                      width: 180,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xfff0f0f0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('asset/images/officetel.png'),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '오피스텔',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff292D32)),
-                          ),
-                        ],
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Aptpage()));
+                      },
+                      child: Container(
+                        width: 180,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xfff0f0f0),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('asset/images/officetel.png'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '오피스텔',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff292D32)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

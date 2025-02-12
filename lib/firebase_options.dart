@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'apt-app-d09ef.firebasestorage.app',
     measurementId: 'G-R042W8WS0F',
   );
+
 }

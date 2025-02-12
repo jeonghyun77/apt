@@ -1,5 +1,5 @@
 import 'package:apt/firebase_options.dart';
-import 'package:apt/splashpage.dart';
+import 'package:apt/onboarding/splashpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
