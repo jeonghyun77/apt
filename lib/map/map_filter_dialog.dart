@@ -98,7 +98,7 @@ class _MapFilterDialogState extends State<MapFilterDialog> {
             ),
             Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(onPressed: (){
                     Navigator.of(context).pop(mapFilter);
