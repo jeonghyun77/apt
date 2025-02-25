@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:apt/components/gradient_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:apt/mainpage.dart';
 import 'package:apt/user/join.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 import '../constants/constants.dart';
+import '../map/mapPage.dart';
 import 'login_platform.dart';
 
 
@@ -183,8 +185,21 @@ class _LoginPageState extends State<LoginPage> {
                   )),
                 ],
               ),
+              ElevatedButton(onPressed: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Mappage()));
+              }, style: ElevatedButton.styleFrom(
+                  minimumSize: Size(280, 40),
+                  backgroundColor: Color(0xffffdb12), foregroundColor: Colors.black, elevation: 0
+              ), child: Text(
+                '로그인',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11),
+              )),
               SizedBox(
-                height: 80,
+                height: 30,
               ),
               Center(
                   child: _loginPlatform != LoginPlatform.none
@@ -194,18 +209,10 @@ class _LoginPageState extends State<LoginPage> {
                     children: [_loginButton('kakao_login_medium_narrow', signInWithKakao)],
                   )
               ),
+
             ],
           ),
         ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(20),
-        child: MaterialButton(
-          onPressed: _login,
-          color: Color(0xffffdb12),
-          textColor: Colors.white,
-          child: Text('완료'),
-        ),
-      ),
     );
   }
 

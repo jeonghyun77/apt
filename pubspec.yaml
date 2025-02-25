@@ -38,6 +38,7 @@ dependencies:
   firebase_crashlytics: ^4.2.0
   connectivity_plus: ^6.1.1
   http: ^1.2.2
+  geoflutterfire_plus: ^0.0.32
   google_maps_flutter: ^2.10.0
   kakao_flutter_sdk_user: ^1.9.6
   kakao_flutter_sdk: ^1.9.6
@@ -67,12 +68,12 @@ flutter:
     - asset/images/startpage.png
     - asset/images/alert.png
     - asset/images/User.png
-    - asset/images/apt.png
     - asset/images/house.png
     - asset/images/office.png
     - asset/images/officetel.png
-    - asset/images/Setting.png
     - asset/images/apartment.png
+    - asset/images/Setting.png
+    - asset/images/apt.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see

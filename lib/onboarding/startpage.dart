@@ -1,7 +1,6 @@
+import 'package:apt/components/gradient_button.dart';
 import 'package:flutter/material.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import '../user/join.dart';
-import '../user/login_platform.dart';
 import '../user/Login.dart';
 
 class StartPage extends StatefulWidget {
@@ -25,34 +24,33 @@ class _StartPageState extends State<StartPage> {
           SizedBox(
             height: 80,
           ),
-          ElevatedButton(onPressed: (){
+          CustomButton(width:  MediaQuery.of(context).size.width * 0.68, height: 40, onPressed: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LoginPage()));
-          }, style: ElevatedButton.styleFrom(
-              minimumSize: Size(280, 40),
-              backgroundColor: Color(0xffffdb12), foregroundColor: Colors.black, elevation: 0
-          ), child: Text(
-            '로그인',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 11),
+          },child: Center(
+            child: Text(
+              '로그인',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11),
+            ),
           )),
-          ElevatedButton(onPressed: (){
-            Navigator.push(
-                context,
+          SizedBox(
+            height: 10,
+          ),
+          CustomButton(width: MediaQuery.of(context).size.width * 0.68, height: 40, onPressed: (){
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => JoinPage()));
-          }, style: ElevatedButton.styleFrom(
-            minimumSize: Size(280, 40),
-            backgroundColor: Color(0xffffdb12), foregroundColor: Colors.black, elevation: 0
-          ), child: Text(
-            '회원가입',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 11),
+          },child: Center(
+            child: Text(
+              '회원가입',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11),
+            ),
           )),
-
         ],
       ),)
     );
