@@ -25,6 +25,7 @@ final TextEditingController _passworConfirmController = TextEditingController();
 
 bool _isObscure = true;
 bool _isObscuref = true;
+bool _isCheck = false;
 bool _isCheckRed = false;
 
  Future <void> _signUp()async{
@@ -143,10 +144,11 @@ bool _isCheckRed = false;
                 Row(
                   children: [
                     Checkbox(
-                      value: _isCheckRed,
+                      value: _isCheck,
                       onChanged: (value) {
                         setState(() {
-                          _isCheckRed = value!;
+                          _isCheck =  value!;
+                          _isCheckRed =  value;
                         });
                       },
                     ),
@@ -168,22 +170,13 @@ bool _isCheckRed = false;
                     Text(" 14세 이상입니다.", style: TextStyle(fontSize: 10),)
                   ],
                 ),
-
-                GradientButton(
-                  onPressed:  _signUp,
-                  width: 50, height: 20, child: Center(child:  Text('완료',style: TextStyle(color: Colors.white, fontSize: 13),),),)
+                SizedBox(
+                  height: 30,
+                ),
+                CustomButton(width: 50, height: 20, onPressed: _signUp, child:  Center(child:  Text('완료',style: TextStyle(color: Colors.white, fontSize: 13),),),)
               ],)))
 
             ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.all(20),
-            child: MaterialButton(
-              onPressed: _signUp,
-              color: Color(0xffffdb12),
-              textColor: Colors.white,
-              child: Text('완료'),
-            ),
-      ),
     );
   }
 

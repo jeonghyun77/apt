@@ -25,13 +25,13 @@ class _AptpageState extends State<Aptpage> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
-
+  final Set<Marker> _markers = {};
+  BitmapDescriptor? _markerIcon;
   Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
   MarkerId? selectMarker;
   BitmapDescriptor makerIcon = BitmapDescriptor.defaultMarker;
 
   late List<DocumentSnapshot> documentList = List<DocumentSnapshot>.empty(growable: true);
-
 
 
 
@@ -42,9 +42,19 @@ class _AptpageState extends State<Aptpage> {
     addCustomIcon();
   }
 
-  void addCustomIcon()async{
-   makerIcon = await BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size(48, 48)), "asset/images/apartment.png");
+  void addCustomIcon() {
+    BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size(40, 40)), "assets/images/apartment.png",
+
+    ).then((icon) {
+      setState(() {
+        makerIcon = icon;
+        print("아이콘 나옴");
+      });
+    }).catchError((error) {
+      print("아이콘 로드 실패: $error");
+    });
   }
+
 
   Future<void> _searchApt()async{
     final GoogleMapController controller = await _controller.future;
@@ -71,7 +81,10 @@ class _AptpageState extends State<Aptpage> {
       List<MarkerId> markerIds = List.of(markers.keys);
       for(var markerId in markerIds){
         setState(() {
-          markers.remove(markerId);
+          _markers.clear();
+          markers.forEach((key, value) {
+            _markers.add(value);
+          });
         });
       }
     }
@@ -82,7 +95,7 @@ class _AptpageState extends State<Aptpage> {
         Marker marker = Marker(markerId: markerId, infoWindow: InfoWindow(
           title: info['name'], snippet: '${info['address']}', onTap: (){}),
           position: LatLng((info['position']['geopoint'] as GeoPoint).latitude, (info['position']['geopoint'] as GeoPoint).longitude),
-          icon: makerIcon
+          icon: makerIcon,
         );
         setState(() {
           markers[markerId] = marker;
@@ -96,7 +109,7 @@ class _AptpageState extends State<Aptpage> {
     final dong = info['ALL_DONG_CO'];
     final people = info['ALL_HSHLD_CO'];
     final parking = people / info['CNT_PA'];
-    MarkerId markerId = MarkerId(info['postion']['geohash']);
+    MarkerId markerId = MarkerId(info['position']['geohash']);
     Marker marker = Marker(markerId: markerId);
 
     if(dong >= int.parse(buildingString!)){
@@ -134,30 +147,24 @@ class _AptpageState extends State<Aptpage> {
         backgroundColor: Colors.white,
         actions: [IconButton(onPressed: () async
         {var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-            return MapFilterDialog(mapFilter: mapFilter);
-          }));
-          if(result != null){
-            mapFilter = result as MapFilter;
-          }
+          return MapFilterDialog(mapFilter: mapFilter);
+        }));
+        if(result != null){
+          mapFilter = result as MapFilter;
+        }
         }, icon: Icon(Icons.search))],
       ),
       body:
-          currentItem == 0
-      ? Column(
-        children: [
-          Expanded(
-            child: GoogleMap(
-              markers: Set<Marker>.of(markers.values),
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 11.0,
-              ),
+      currentItem == 0
+          ? GoogleMap(
+            markers: _markers,
+            onMapCreated: _onMapCreated,
+            mapType: MapType.normal,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 15.0,
             ),
-          ),
-          TextButton(onPressed: () => throw Exception(), child: const Text("data")),
-        ],
-      ): ListView.builder(itemBuilder: (context, value){
+          ): ListView.builder(itemBuilder: (context, value){
         Map<String, dynamic> item = documentList[value].data() as Map<String, dynamic>;
         return InkWell(
           child: Card(
@@ -170,9 +177,31 @@ class _AptpageState extends State<Aptpage> {
           ),
           onTap: (){},
         );
-          }, itemCount: documentList.length,
+      }, itemCount: documentList.length,
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: addCustomIcon,
+        child: Icon(Icons.search), ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'map',
           ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: _searchApt, label: const Text('이 위치로 검색하기')),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'list',
+          ),
+        ],
+        currentIndex: currentItem,
+        onTap: (value){
+          if(value == 0){
+            _controller = Completer<GoogleMapController>();
+          }
+          setState(() {
+            currentItem = value;
+          });
+        },
+      ),
     );
   }
 
